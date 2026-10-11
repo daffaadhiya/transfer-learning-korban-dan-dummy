@@ -1,0 +1,6 @@
+Citra: train=61 (negatif 0), val=18 (negatif 0)
+kelas                   train   val  total
+korban                     40    10     50
+dummy                      40    10     50
+
+0/2 kelas belum mencapai 50 instance.

@@ -1,0 +1,14 @@
+{
+  "mode": "partial",
+  "epochs": 40,
+  "best_map50": 0.49619463086128235,
+  "best_map50_95": 0.24765589833259583,
+  "waktu_latih_s": 320,
+  "epoch_map50_ke_target": null,
+  "target_map50": 0.5,
+  "param_total": 2220380,
+  "param_dilatih": 2060428,
+  "n_train": 61,
+  "n_val": 18,
+  "n_kelas": 2
+}

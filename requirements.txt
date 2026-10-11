@@ -1,0 +1,10 @@
+torch>=2.1
+torchvision>=0.16
+torchmetrics>=1.2
+pycocotools
+opencv-python
+numpy
+pandas
+matplotlib
+tqdm
+tabulate

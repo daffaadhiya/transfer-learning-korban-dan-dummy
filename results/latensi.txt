@@ -1,0 +1,12 @@
+[info] calib.npz tidak dipakai (undistort dilewati)
+
+Latensi per frame (30 run, device=cpu):
+  akuisisi+undistort   rata-rata     1.8 ms   p95     1.9 ms
+  preprocess           rata-rata     0.5 ms   p95     0.6 ms
+  inferensi            rata-rata    35.1 ms   p95    38.7 ms
+  postprocess          rata-rata     0.1 ms   p95     0.1 ms
+  total                rata-rata    37.3 ms   p95    41.2 ms
+
+FPS (rata-rata, pipeline lengkap): 26.8
+Anggaran 15 FPS = 67 ms -> MEMENUHI
+Catatan: latensi ROS2 (publish/subscribe) belum termasuk; ukur terpisah di robot.

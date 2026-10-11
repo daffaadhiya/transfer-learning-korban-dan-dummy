@@ -1,0 +1,7 @@
+mAP50=0.496  mAP50-95=0.248
+10 kelas terlemah:
+  kelas  AP50-95
+ dummy   0.0694
+korban   0.4259
+
+Pasangan sering tertukar (GT -> prediksi):
