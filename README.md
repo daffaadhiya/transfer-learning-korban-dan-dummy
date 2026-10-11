@@ -4,7 +4,7 @@ Tugas RET503 Pertemuan 3 — Transfer Learning dan Fine-Tuning Model Visi.
 Detektor: **SSDLite320 + MobileNetV3-Large** (torchvision) dengan bobot awal **COCO**, dilatih dengan tiga
 pendekatan (feature extraction, fine-tuning parsial, scratch) lalu dibandingkan.
 
-> Kelompok / nama: `[ISI]`
+> nama: `[Daffa' Dhiya 'Ulhaq (4222401075)]`
 
 ## 1. Ringkasan
 - **Tugas:** mendeteksi dan melokalisasi `korban` dan `dummy` pada citra untuk robot SAR KRSRI.
@@ -54,9 +54,9 @@ Citra: train = 61, val = 18.
 <!--HASIL-->
 | Mode    |   mAP50 terbaik |   mAP50-95 terbaik |   Waktu latih (s) | Epoch mAP50>=0.5   |   Param dilatih (M) |
 |:--------|----------------:|-------------------:|------------------:|:-------------------|--------------------:|
-| feature |           0.418 |              0.188 |               256 | tidak tercapai     |                0.15 |
-| partial |           0.496 |              0.248 |               320 | tidak tercapai     |                2.06 |
-| scratch |           0.009 |              0.001 |               402 | tidak tercapai     |                2.22 |
+| feature |           0.161 |              0.073 |                17 | tidak tercapai     |                0.15 |
+| partial |           0.225 |              0.07  |                20 | tidak tercapai     |                2.06 |
+| scratch |           0.001 |              0     |                27 | tidak tercapai     |                2.22 |
 <!--/HASIL-->
 
 Grafik: `results/kurva_3_mode.png` · AP per kelas: `results/*_per_class_ap.csv` · Confusion matrix: `results/*_confusion.png`
@@ -70,13 +70,13 @@ dan perlu diukur ulang dengan `latency.py` saat perangkatnya ada.
 [info] calib.npz tidak dipakai (undistort dilewati)
 
 Latensi per frame (30 run, device=cpu):
-  akuisisi+undistort   rata-rata     1.8 ms   p95     1.9 ms
+  akuisisi+undistort   rata-rata     1.8 ms   p95     2.2 ms
   preprocess           rata-rata     0.5 ms   p95     0.6 ms
-  inferensi            rata-rata    35.1 ms   p95    38.7 ms
+  inferensi            rata-rata    33.3 ms   p95    37.6 ms
   postprocess          rata-rata     0.1 ms   p95     0.1 ms
-  total                rata-rata    37.3 ms   p95    41.2 ms
+  total                rata-rata    35.6 ms   p95    40.1 ms
 
-FPS (rata-rata, pipeline lengkap): 26.8
+FPS (rata-rata, pipeline lengkap): 28.1
 Anggaran 15 FPS = 67 ms -> MEMENUHI
 Catatan: latensi ROS2 (publish/subscribe) belum termasuk; ukur terpisah di robot.
 ```
@@ -87,10 +87,10 @@ Catatan: latensi ROS2 (publish/subscribe) belum termasuk; ukur terpisah di robot
 Draf otomatis dari angka (periksa dan lengkapi sendiri):
 
 <!--ANALISIS-->
-- Mode dengan mAP50-95 tertinggi pada data validasi ini: **partial** (mAP50 = 0.496, mAP50-95 = 0.248).
-- Dibanding scratch (mAP50-95 = 0.001), selisih mAP50-95 = +0.247. Ini sejalan dengan hipotesis bahwa transfer learning membantu pada data kecil.
-- Waktu latih (detik): feature = 256, partial = 320, scratch = 402.
-- AP50-95 per kelas (model terbaik): dummy = 0.069, korban = 0.426.
+- Mode dengan mAP50-95 tertinggi pada data validasi ini: **feature** (mAP50 = 0.161, mAP50-95 = 0.073).
+- Dibanding scratch (mAP50-95 = 0.000), selisih mAP50-95 = +0.073. Ini sejalan dengan hipotesis bahwa transfer learning membantu pada data kecil.
+- Waktu latih (detik): feature = 17, partial = 20, scratch = 27.
+- AP50-95 per kelas (model terbaik): dummy = 0.016, korban = 0.130.
 <!--/ANALISIS-->
 
 Catatan analisis (isi / sesuaikan):
@@ -100,8 +100,8 @@ Catatan analisis (isi / sesuaikan):
 4. **Negative transfer / leakage:** split per sesi; mAP validasi yang terlalu tinggi perlu dicurigai.
 
 ## 6. Keterbatasan (jujur)
-- Data berasal dari dataset publik, **bukan dari kamera dan arena robot KRSRI**, sehingga performa di arena nyata belum terbukti.
-- Kelas `korban` dilatih dari foto orang dengan berbagai pose sebagai pendekatan, bukan dari boneka korban lomba.
+- Data berasal dari dataset publik, dan digunakan untuk training vision pada robot.
+- Kelas `korban` dilatih dari foto orang dengan berbagai pose sebagai pendekatan terhadap boneka korban lomba, dan kelas `dummy` dari dataset dummy publik.
 - Jumlah data kecil (±50 instance per kelas); validasi hanya puluhan gambar sehingga hasil sangat bergantung pada pembagian data.
 - Latensi belum diukur di perangkat robot.
 - Rencana lanjutan: ambil data dengan kamera robot (`capture.py`), anotasi sendiri, dan latih ulang.
